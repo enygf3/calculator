@@ -1,0 +1,16 @@
+{
+  "parser": "@babel/eslint-parser",
+  "rules": {
+    "no-unused-vars": "off",
+    "prettier/prettier": ["error"]
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "requireConfigFile": false
+  },
+  "extends": ["eslint:recommended", "prettier", "plugin:prettier/recommended"],
+  "plugins": ["prettier"]
+}
