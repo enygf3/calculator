@@ -2,7 +2,13 @@
   "parser": "@babel/eslint-parser",
   "rules": {
     "no-unused-vars": "off",
-    "prettier/prettier": ["error"]
+    "prettier/prettier": [
+      "error",
+      {
+        "useTabs": false,
+        "quote-props": "preserve"
+      }
+    ]
   },
   "env": {
     "browser": true,

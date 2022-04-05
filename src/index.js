@@ -36,6 +36,10 @@ class Calculator {
   displayValue() {
     document.querySelector(".display-content").innerHTML =
       calc.props.currentValue;
+    console.log(
+      document.querySelector(".display-content").innerHTML,
+      calc.props.currentValue
+    );
   }
 
   changeValues() {
@@ -68,13 +72,12 @@ class Calculator {
   }
 
   plus() {
-    if (this.props.currentValue && this.props.prevValue) {
-      this.props.currentValue = (
-        Number(this.props.prevValue) + Number(this.props.currentValue)
-      ).toString();
-      this.props.prevValue = "";
-      this.displayValue();
-    }
+    this.props.currentValue = (
+      Number(this.props.prevValue) + Number(this.props.currentValue)
+    ).toString();
+    this.props.prevValue = "";
+    console.log(this.props.currentValue);
+    this.displayValue();
   }
 
   minus() {
@@ -124,26 +127,35 @@ class Calculator {
     this.displayValue();
   }
 
-  doOperation(operation) {
-    switch (operation) {
-      case "+":
-        this.plus();
-        break;
-      case "−":
-        this.minus();
-        break;
-      case "×":
-        this.multiply();
-        break;
-      case "÷":
-        this.divide();
-        break;
-      case "%":
-        this.procent();
-        break;
-      default:
-        break;
-    }
+  findOperation(value) {
+    const operators = {
+      plus: this.plus.bind(this),
+      minus: this.minus.bind(this),
+      multiply: this.multiply.bind(this),
+      divide: this.divide.bind(this),
+      procent: this.procent.bind(this),
+      memoryRead: this.memoryRead.bind(this),
+      memorySave: this.memorySave.bind(this),
+      memoryClear: this.memoryClear.bind(this),
+      memoryPlus: this.memoryPlus.bind(this),
+      memoryMinus: this.memoryMinus.bind(this),
+      clear: this.clear.bind(this),
+    };
+
+    const variables = {
+      plus: "+",
+      minus: "−",
+      multiply: "×",
+      divide: "÷",
+      procent: "%",
+      memoryRead: "MR",
+      memorySave: "MS",
+      memoryClear: "MC",
+      memoryPlus: "M+",
+      memoryMinus: "M-",
+    };
+
+    operators[Object.keys(variables).find((key) => variables[key] === value)]();
   }
 }
 
@@ -163,7 +175,9 @@ class CommandPushOperation {
   }
 
   execute(value) {
-    this.calculator.pushOperation(value);
+    value !== "C"
+      ? this.calculator.pushOperation(value)
+      : this.calculator.clear();
   }
 }
 
@@ -177,71 +191,39 @@ class commandGetValue {
   }
 }
 
-class commandCalculate {
+class doOperation {
   constructor(calculator) {
     this.calculator = calculator;
   }
 
   execute(value) {
-    this.calculator.doOperation(value);
+    this.calculator.findOperation(value);
   }
 }
 
 const calc = new Calculator();
+
 const getValue = new commandGetValue(calc);
 const valueExecuter = new Executer(getValue);
 
 const pushOperation = new CommandPushOperation(calc);
 const operationExecuter = new Executer(pushOperation);
 
-const doCalculation = new commandCalculate(calc);
-const calculationExecuter = new Executer(doCalculation);
+const makeOperation = new doOperation(calc);
+const calculationExecuter = new Executer(makeOperation);
 
-const saveMemory = new commandMemorySave(calc);
-const saveMemoryExecuter = new Executer(saveMemory);
-
-const clearMemory = new commandMemoryClear(calc);
-const clearMemoryExecuter = new Executer(clearMemory);
-
-const readMemory = new commandMemoryRead(calc);
-const readMemoryExecuter = new Executer(readMemory);
-
-const plusMemory = new commandMemoryPlus(calc);
-const plusMemoryExecuter = new Executer(plusMemory);
-
-const minusMemory = new commandMemoryMinus(calc);
-const minusMemoryExecuter = new Executer(minusMemory);
+function findExec(value) {
+  if (!isNaN(value)) {
+    valueExecuter.execute(value);
+  } else if (value !== "=") {
+    operationExecuter.execute(value);
+  } else {
+    calculationExecuter.execute(`${calc.props.operation}`);
+  }
+}
 
 document.querySelectorAll(".app-controls-button").forEach((item) => {
   item.addEventListener("click", () => {
-    if (!isNaN(item.innerHTML) || Number(item.innerHTML)) {
-      valueExecuter.execute(item.innerHTML);
-      console.log(calc);
-    } else if (item.innerHTML === "=") {
-      calculationExecuter.execute(`${calc.props.operation}`);
-      console.log(calc);
-    } else if (item.innerHTML === "MS") {
-      saveMemoryExecuter.execute();
-      console.log(calc);
-    } else if (item.innerHTML === "MC") {
-      clearMemoryExecuter.execute();
-      console.log(calc);
-    } else if (item.innerHTML === "MR") {
-      readMemoryExecuter.execute();
-      console.log(calc);
-    } else if (item.innerHTML === "C") {
-      calc.clear();
-      console.log(calc);
-    } else if (item.innerHTML === "M-") {
-      minusMemoryExecuter.execute();
-      console.log(calc);
-    } else if (item.innerHTML === "M+") {
-      plusMemoryExecuter.execute();
-      console.log(calc);
-    } else {
-      operationExecuter.execute(item.innerHTML);
-      console.log(item.innerHTML);
-      console.log(calc);
-    }
+    findExec(item.innerHTML);
   });
 });
