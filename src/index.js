@@ -1,4 +1,9 @@
 import "./styles/style.sass";
+import commandMemorySave from "./components/memory/commandMemorySave/commandMemorySave";
+import commandMemoryClear from "./components/memory/commandMemoryClear/commandMemoryClear";
+import commandMemoryRead from "./components/memory/commandMemoryRead/commandMemoryRead";
+import commandMemoryPlus from "./components/memory/commandMemoryPlus/commandMemoryPlus";
+import commandMemoryMinus from "./components/memory/commandMemoryMinus/commandMemoryMinus";
 
 class Calculator {
   constructor() {
@@ -38,6 +43,30 @@ class Calculator {
     this.props.currentValue = "0";
   }
 
+  memorySave() {
+    this.props.memory = this.props.currentValue;
+  }
+
+  memoryClear() {
+    this.props.memory = "";
+  }
+
+  memoryRead() {
+    this.props.currentValue = this.props.memory;
+  }
+
+  memoryPlus() {
+    this.props.memory = (
+      Number(this.props.memory) + Number(this.props.currentValue)
+    ).toString();
+  }
+
+  memoryMinus() {
+    this.props.memory = (
+      Number(this.props.memory) - Number(this.props.currentValue)
+    ).toString();
+  }
+
   plus() {
     if (this.props.currentValue && this.props.prevValue) {
       this.props.currentValue = (
@@ -49,17 +78,15 @@ class Calculator {
   }
 
   minus() {
-    if (this.props.currentValue && this.props.prevValue) {
-      this.props.currentValue = (
-        Number(this.props.prevValue) - Number(this.props.currentValue)
-      ).toString();
-      this.props.prevValue = "";
-      this.displayValue();
-    }
+    this.props.currentValue = Number(
+      Number(this.props.prevValue) - Number(this.props.currentValue)
+    ).toString();
+    this.props.prevValue = "";
+    this.displayValue();
   }
 
   divide() {
-    if (this.props.currentValue && this.props.prevValue) {
+    if (this.props.prevValue) {
       this.props.currentValue = (
         Number(this.props.prevValue) / Number(this.props.currentValue)
       ).toString();
@@ -93,7 +120,6 @@ class Calculator {
     this.props.currentValue = "0";
     this.props.prevValue = "";
     this.props.operation = null;
-    this.props.memory = "";
     this.props.history = [];
     this.displayValue();
   }
@@ -103,13 +129,13 @@ class Calculator {
       case "+":
         this.plus();
         break;
-      case "-":
+      case "−":
         this.minus();
         break;
       case "×":
         this.multiply();
         break;
-      case "/":
+      case "÷":
         this.divide();
         break;
       case "%":
@@ -171,6 +197,21 @@ const operationExecuter = new Executer(pushOperation);
 const doCalculation = new commandCalculate(calc);
 const calculationExecuter = new Executer(doCalculation);
 
+const saveMemory = new commandMemorySave(calc);
+const saveMemoryExecuter = new Executer(saveMemory);
+
+const clearMemory = new commandMemoryClear(calc);
+const clearMemoryExecuter = new Executer(clearMemory);
+
+const readMemory = new commandMemoryRead(calc);
+const readMemoryExecuter = new Executer(readMemory);
+
+const plusMemory = new commandMemoryPlus(calc);
+const plusMemoryExecuter = new Executer(plusMemory);
+
+const minusMemory = new commandMemoryMinus(calc);
+const minusMemoryExecuter = new Executer(minusMemory);
+
 document.querySelectorAll(".app-controls-button").forEach((item) => {
   item.addEventListener("click", () => {
     if (!isNaN(item.innerHTML) || Number(item.innerHTML)) {
@@ -179,11 +220,27 @@ document.querySelectorAll(".app-controls-button").forEach((item) => {
     } else if (item.innerHTML === "=") {
       calculationExecuter.execute(`${calc.props.operation}`);
       console.log(calc);
+    } else if (item.innerHTML === "MS") {
+      saveMemoryExecuter.execute();
+      console.log(calc);
+    } else if (item.innerHTML === "MC") {
+      clearMemoryExecuter.execute();
+      console.log(calc);
+    } else if (item.innerHTML === "MR") {
+      readMemoryExecuter.execute();
+      console.log(calc);
     } else if (item.innerHTML === "C") {
       calc.clear();
       console.log(calc);
+    } else if (item.innerHTML === "M-") {
+      minusMemoryExecuter.execute();
+      console.log(calc);
+    } else if (item.innerHTML === "M+") {
+      plusMemoryExecuter.execute();
+      console.log(calc);
     } else {
       operationExecuter.execute(item.innerHTML);
+      console.log(item.innerHTML);
       console.log(calc);
     }
   });
