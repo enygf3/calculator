@@ -57,6 +57,7 @@ class Calculator {
 
   memoryRead() {
     this.props.currentValue = this.props.memory;
+    this.displayValue();
   }
 
   memoryPlus() {
@@ -134,12 +135,6 @@ class Calculator {
       multiply: this.multiply.bind(this),
       divide: this.divide.bind(this),
       procent: this.procent.bind(this),
-      memoryRead: this.memoryRead.bind(this),
-      memorySave: this.memorySave.bind(this),
-      memoryClear: this.memoryClear.bind(this),
-      memoryPlus: this.memoryPlus.bind(this),
-      memoryMinus: this.memoryMinus.bind(this),
-      clear: this.clear.bind(this),
     };
 
     const variables = {
@@ -148,11 +143,26 @@ class Calculator {
       multiply: "×",
       divide: "÷",
       procent: "%",
+    };
+
+    operators[Object.keys(variables).find((key) => variables[key] === value)]();
+  }
+
+  memoryOperation(value) {
+    const operators = {
+      memoryPlus: this.memoryPlus.bind(this),
+      memoryMinus: this.memoryMinus.bind(this),
+      memoryRead: this.memoryRead.bind(this),
+      memorySave: this.memorySave.bind(this),
+      memoryClear: this.memoryClear.bind(this),
+    };
+
+    const variables = {
+      memoryPlus: "M+",
+      memoryMinus: "M-",
       memoryRead: "MR",
       memorySave: "MS",
       memoryClear: "MC",
-      memoryPlus: "M+",
-      memoryMinus: "M-",
     };
 
     operators[Object.keys(variables).find((key) => variables[key] === value)]();
@@ -201,6 +211,16 @@ class doOperation {
   }
 }
 
+class commandMemory {
+  constructor(calculator) {
+    this.calculator = calculator;
+  }
+
+  execute(value) {
+    this.calculator.memoryOperation(value);
+  }
+}
+
 const calc = new Calculator();
 
 const getValue = new commandGetValue(calc);
@@ -212,9 +232,15 @@ const operationExecuter = new Executer(pushOperation);
 const makeOperation = new doOperation(calc);
 const calculationExecuter = new Executer(makeOperation);
 
+const memoryOperation = new commandMemory(calc);
+const memoryExecuter = new Executer(memoryOperation);
+
 function findExec(value) {
+  console.log(calc, value[0]);
   if (!isNaN(value)) {
     valueExecuter.execute(value);
+  } else if (value[0] === "M") {
+    memoryExecuter.execute(value);
   } else if (value !== "=") {
     operationExecuter.execute(value);
   } else {
