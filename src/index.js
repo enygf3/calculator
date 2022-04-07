@@ -1,9 +1,9 @@
 import "./styles/style.sass";
-import commandMemorySave from "./components/memory/commandMemorySave/commandMemorySave";
-import commandMemoryClear from "./components/memory/commandMemoryClear/commandMemoryClear";
-import commandMemoryRead from "./components/memory/commandMemoryRead/commandMemoryRead";
-import commandMemoryPlus from "./components/memory/commandMemoryPlus/commandMemoryPlus";
-import commandMemoryMinus from "./components/memory/commandMemoryMinus/commandMemoryMinus";
+import commandMemory from "./components/commands/commandMemory/commandMemory";
+import commandGetValue from "./components/commands/commandGetValue/commandGetValue";
+import commandDoOperation from "./components/commands/commandDoOperation/commandDoOperation";
+import commandPushOperation from "./components/commands/commandPushOperation/commandPushOperation";
+import Executer from "./components/executer/executer";
 
 class Calculator {
   constructor() {
@@ -27,29 +27,32 @@ class Calculator {
   }
 
   pushOperation(operation) {
-    if (
-      this.props.currentValue &&
-      this.props.prevValue &&
-      this.props.operation
-    ) {
-      this.findOperation(this.props.operation);
-      this.changeValues();
-      this.props.operation = operation;
+    if (operation === "C") {
+      this.clear();
+    } else if (operation === "←") {
+      this.larr();
+    } else if (operation === "Back") {
+      this.back();
     } else {
-      if (operation !== "←") {
+      if (
+        this.props.currentValue &&
+        this.props.prevValue &&
+        this.props.operation
+      ) {
+        this.findOperation(this.props.operation);
+        this.changeValues();
+        this.props.operation = operation;
+      } else {
         this.props.operation = operation;
         if (this.props.currentValue) {
           this.changeValues();
         }
-      } else {
-        this.props.operation = operation;
       }
     }
   }
 
   displayValue(arg = calc.props.currentValue) {
     document.querySelector(".display-content").innerHTML = arg;
-    console.log(document.querySelector(".display-content").innerHTML, arg);
 
     return arg.toString();
   }
@@ -184,7 +187,6 @@ class Calculator {
   }
 
   larr() {
-    console.log("larr");
     if (this.props.currentValue.length > 0) {
       this.props.currentValue =
         this.props.currentValue.slice(0, this.props.currentValue.length - 1) ||
@@ -233,7 +235,6 @@ class Calculator {
       ["X³", this.xPow3.bind(this)],
       ["Xᵧ", this.xPowY.bind(this)],
       ["±", this.plusMinus.bind(this)],
-      ["←", this.larr.bind(this)],
       ["²√", this.squareRoot.bind(this)],
       ["³√", this.tripleRoot.bind(this)],
       ["ᵧ√", this.root.bind(this)],
@@ -255,73 +256,15 @@ class Calculator {
   }
 }
 
-class Executer {
-  constructor(command) {
-    this.command = command;
-  }
-
-  execute(value) {
-    this.command.execute(value);
-  }
-}
-
-class CommandPushOperation {
-  constructor(calculator) {
-    this.calculator = calculator;
-  }
-
-  execute(value) {
-    if (value === "C") {
-      this.calculator.clear();
-    } else if (value === "←") {
-      this.calculator.larr();
-    } else if (value === "Back") {
-      this.calculator.back();
-    } else {
-      this.calculator.pushOperation(value);
-    }
-  }
-}
-
-class commandGetValue {
-  constructor(calculator) {
-    this.calculator = calculator;
-  }
-
-  execute(value) {
-    this.calculator.getValue(value);
-  }
-}
-
-class doOperation {
-  constructor(calculator) {
-    this.calculator = calculator;
-  }
-
-  execute(value) {
-    this.calculator.findOperation(value);
-  }
-}
-
-class commandMemory {
-  constructor(calculator) {
-    this.calculator = calculator;
-  }
-
-  execute(value) {
-    this.calculator.memoryOperation(value);
-  }
-}
-
 const calc = new Calculator();
 
 const getValue = new commandGetValue(calc);
 const valueExecuter = new Executer(getValue);
 
-const pushOperation = new CommandPushOperation(calc);
+const pushOperation = new commandPushOperation(calc);
 const operationExecuter = new Executer(pushOperation);
 
-const makeOperation = new doOperation(calc);
+const makeOperation = new commandDoOperation(calc);
 const calculationExecuter = new Executer(makeOperation);
 
 const memoryOperation = new commandMemory(calc);
@@ -330,16 +273,12 @@ const memoryExecuter = new Executer(memoryOperation);
 function findExec(value) {
   if (value === "." || !isNaN(value)) {
     valueExecuter.execute(value);
-    console.log(calc);
   } else if (value[0] === "M") {
     memoryExecuter.execute(value);
-    console.log(calc);
   } else if (value !== "=") {
     operationExecuter.execute(value);
-    console.log(calc, value);
   } else {
     calculationExecuter.execute(`${calc.props.operation}`);
-    console.log(calc);
   }
 }
 
