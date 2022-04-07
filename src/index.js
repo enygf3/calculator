@@ -27,13 +27,23 @@ class Calculator {
   }
 
   pushOperation(operation) {
-    if (operation !== "←") {
+    if (
+      this.props.currentValue &&
+      this.props.prevValue &&
+      this.props.operation
+    ) {
+      this.findOperation(this.props.operation);
+      this.changeValues();
       this.props.operation = operation;
-      if (this.props.currentValue) {
-        this.changeValues();
-      }
     } else {
-      this.props.operation = operation;
+      if (operation !== "←") {
+        this.props.operation = operation;
+        if (this.props.currentValue) {
+          this.changeValues();
+        }
+      } else {
+        this.props.operation = operation;
+      }
     }
   }
 
