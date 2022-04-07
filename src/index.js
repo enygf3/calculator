@@ -143,6 +143,28 @@ class Calculator {
     );
   }
 
+  xPow2() {
+    if (this.props.prevValue !== "0" && this.props.prevValue) {
+      this.props.currentValue = (
+        this.props.prevValue * this.props.prevValue
+      ).toString();
+    }
+
+    this.displayValue();
+  }
+
+  xPow3() {
+    if (this.props.prevValue !== "0" && this.props.prevValue) {
+      this.props.currentValue = (
+        this.props.prevValue *
+        this.props.prevValue *
+        this.props.prevValue
+      ).toString();
+    }
+
+    this.displayValue();
+  }
+
   findOperation(value) {
     const data = new Map([
       ["+", this.plus.bind(this)],
@@ -152,6 +174,8 @@ class Calculator {
       ["%", this.procent.bind(this)],
       ["1/x", this.oneDivideX.bind(this)],
       ["!x", this.factFunc.bind(this)],
+      ["X²", this.xPow2.bind(this)],
+      ["X³", this.xPow3.bind(this)],
     ]);
 
     data.get(value)();
