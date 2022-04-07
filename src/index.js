@@ -27,9 +27,13 @@ class Calculator {
   }
 
   pushOperation(operation) {
-    this.props.operation = operation;
-    if (this.props.currentValue) {
-      this.changeValues();
+    if (operation !== "←") {
+      this.props.operation = operation;
+      if (this.props.currentValue) {
+        this.changeValues();
+      }
+    } else {
+      this.props.operation = operation;
     }
   }
 
@@ -175,6 +179,24 @@ class Calculator {
     );
   }
 
+  plusMinus() {
+    if (this.props.prevValue !== "0" && this.props.prevValue) {
+      this.props.currentValue = Number(this.props.prevValue) * -1;
+    }
+    this.displayValue();
+  }
+
+  larr() {
+    console.log("larr");
+    if (this.props.currentValue.length > 0) {
+      this.props.currentValue =
+        this.props.currentValue.slice(0, this.props.currentValue.length - 1) ||
+        "0";
+    }
+
+    this.displayValue();
+  }
+
   findOperation(value) {
     const data = new Map([
       ["+", this.plus.bind(this)],
@@ -187,8 +209,11 @@ class Calculator {
       ["X²", this.xPow2.bind(this)],
       ["X³", this.xPow3.bind(this)],
       ["Xᵧ", this.xPowYFunc.bind(this)],
+      ["±", this.plusMinus.bind(this)],
+      ["←", this.larr.bind(this)],
     ]);
 
+    console.log(value);
     data.get(value)();
   }
 
@@ -221,9 +246,13 @@ class CommandPushOperation {
   }
 
   execute(value) {
-    value !== "C"
-      ? this.calculator.pushOperation(value)
-      : this.calculator.clear();
+    if (value === "C") {
+      this.calculator.clear();
+    } else if (value === "←") {
+      this.calculator.larr();
+    } else {
+      this.calculator.pushOperation(value);
+    }
   }
 }
 
@@ -280,7 +309,7 @@ function findExec(value) {
     console.log(calc);
   } else if (value !== "=") {
     operationExecuter.execute(value);
-    console.log(calc);
+    console.log(calc, value);
   } else {
     calculationExecuter.execute(`${calc.props.operation}`);
     console.log(calc);
