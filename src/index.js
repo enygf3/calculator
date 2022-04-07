@@ -219,7 +219,6 @@ class Calculator {
     this.props.currentValue = this.props.history[0];
     this.props.history[0] = "0";
     this.displayValue();
-    console.log("babb");
   }
 
   findOperation(value) {
