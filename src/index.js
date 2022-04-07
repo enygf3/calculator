@@ -165,6 +165,16 @@ class Calculator {
     this.displayValue();
   }
 
+  xPowY(arg) {
+    return arg !== 0 ? this.xPowY(arg - 1) * this.props.prevValue : 1;
+  }
+
+  xPowYFunc() {
+    this.props.currentValue = this.displayValue(
+      this.xPowY(this.props.currentValue)
+    );
+  }
+
   findOperation(value) {
     const data = new Map([
       ["+", this.plus.bind(this)],
@@ -176,6 +186,7 @@ class Calculator {
       ["!x", this.factFunc.bind(this)],
       ["X²", this.xPow2.bind(this)],
       ["X³", this.xPow3.bind(this)],
+      ["Xᵧ", this.xPowYFunc.bind(this)],
     ]);
 
     data.get(value)();
