@@ -148,35 +148,21 @@ class Calculator {
   }
 
   xPow2() {
-    if (this.props.prevValue !== "0" && this.props.prevValue) {
-      this.props.currentValue = (
-        this.props.prevValue * this.props.prevValue
-      ).toString();
-    }
-
-    this.displayValue();
+    this.xPowY(2);
   }
 
   xPow3() {
-    if (this.props.prevValue !== "0" && this.props.prevValue) {
+    this.xPowY(3);
+  }
+
+  xPowY(arg = this.props.currentValue) {
+    if (this.props.prevValue) {
       this.props.currentValue = (
-        this.props.prevValue *
-        this.props.prevValue *
-        this.props.prevValue
+        Number(this.props.prevValue) ** arg
       ).toString();
     }
 
     this.displayValue();
-  }
-
-  xPowY(arg) {
-    return arg !== 0 ? this.xPowY(arg - 1) * this.props.prevValue : 1;
-  }
-
-  xPowYFunc() {
-    this.props.currentValue = this.displayValue(
-      this.xPowY(this.props.currentValue)
-    );
   }
 
   plusMinus() {
@@ -197,6 +183,25 @@ class Calculator {
     this.displayValue();
   }
 
+  root(arg = this.props.currentValue) {
+    if (this.props.prevValue) {
+      this.props.currentValue = (
+        Number(this.props.prevValue) **
+        (1 / arg)
+      ).toString();
+    }
+
+    this.displayValue();
+  }
+
+  squareRoot() {
+    this.root(2);
+  }
+
+  tripleRoot() {
+    this.root(3);
+  }
+
   findOperation(value) {
     const data = new Map([
       ["+", this.plus.bind(this)],
@@ -208,12 +213,14 @@ class Calculator {
       ["!x", this.factFunc.bind(this)],
       ["X²", this.xPow2.bind(this)],
       ["X³", this.xPow3.bind(this)],
-      ["Xᵧ", this.xPowYFunc.bind(this)],
+      ["Xᵧ", this.xPowY.bind(this)],
       ["±", this.plusMinus.bind(this)],
       ["←", this.larr.bind(this)],
+      ["²√", this.squareRoot.bind(this)],
+      ["³√", this.tripleRoot.bind(this)],
+      ["ᵧ√", this.root.bind(this)],
     ]);
 
-    console.log(value);
     data.get(value)();
   }
 
@@ -301,7 +308,7 @@ const memoryOperation = new commandMemory(calc);
 const memoryExecuter = new Executer(memoryOperation);
 
 function findExec(value) {
-  if (!isNaN(value)) {
+  if (value === "." || !isNaN(value)) {
     valueExecuter.execute(value);
     console.log(calc);
   } else if (value[0] === "M") {
