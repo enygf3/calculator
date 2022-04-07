@@ -12,7 +12,7 @@ class Calculator {
       operation: null,
       prevValue: "",
       memory: "0",
-      history: [],
+      history: ["0"],
     };
   }
 
@@ -55,6 +55,7 @@ class Calculator {
   }
 
   changeValues() {
+    this.props.history[0] = this.props.currentValue;
     this.props.prevValue = this.props.currentValue;
     this.props.currentValue = "0";
   }
@@ -212,6 +213,13 @@ class Calculator {
     this.root(3);
   }
 
+  back() {
+    this.props.currentValue = this.props.history[0];
+    this.props.history[0] = "0";
+    this.displayValue();
+    console.log("babb");
+  }
+
   findOperation(value) {
     const data = new Map([
       ["+", this.plus.bind(this)],
@@ -267,6 +275,8 @@ class CommandPushOperation {
       this.calculator.clear();
     } else if (value === "←") {
       this.calculator.larr();
+    } else if (value === "Back") {
+      this.calculator.back();
     } else {
       this.calculator.pushOperation(value);
     }
@@ -337,4 +347,8 @@ document.querySelectorAll(".app-controls-button").forEach((item) => {
   item.addEventListener("click", () => {
     findExec(item.innerHTML);
   });
+});
+
+document.querySelector(".display-content").addEventListener("click", () => {
+  findExec("Back");
 });
