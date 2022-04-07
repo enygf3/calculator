@@ -11,7 +11,7 @@ class Calculator {
       currentValue: "0",
       operation: null,
       prevValue: "",
-      memory: "",
+      memory: "0",
       history: [],
     };
   }
@@ -52,7 +52,7 @@ class Calculator {
   }
 
   memoryClear() {
-    this.props.memory = "";
+    this.props.memory = "0";
   }
 
   memoryRead() {
@@ -129,43 +129,27 @@ class Calculator {
   }
 
   findOperation(value) {
-    const operators = {
-      plus: this.plus.bind(this),
-      minus: this.minus.bind(this),
-      multiply: this.multiply.bind(this),
-      divide: this.divide.bind(this),
-      procent: this.procent.bind(this),
-    };
+    const data = new Map([
+      ["+", this.plus.bind(this)],
+      ["−", this.minus.bind(this)],
+      ["×", this.multiply.bind(this)],
+      ["÷", this.divide.bind(this)],
+      ["%", this.procent.bind(this)],
+    ]);
 
-    const variables = {
-      plus: "+",
-      minus: "−",
-      multiply: "×",
-      divide: "÷",
-      procent: "%",
-    };
-
-    operators[Object.keys(variables).find((key) => variables[key] === value)]();
+    data.get(value)();
   }
 
   memoryOperation(value) {
-    const operators = {
-      memoryPlus: this.memoryPlus.bind(this),
-      memoryMinus: this.memoryMinus.bind(this),
-      memoryRead: this.memoryRead.bind(this),
-      memorySave: this.memorySave.bind(this),
-      memoryClear: this.memoryClear.bind(this),
-    };
+    const data = new Map([
+      ["M+", this.memoryPlus.bind(this)],
+      ["M-", this.memoryMinus.bind(this)],
+      ["MR", this.memoryRead.bind(this)],
+      ["MS", this.memorySave.bind(this)],
+      ["MC", this.memoryClear.bind(this)],
+    ]);
 
-    const variables = {
-      memoryPlus: "M+",
-      memoryMinus: "M-",
-      memoryRead: "MR",
-      memorySave: "MS",
-      memoryClear: "MC",
-    };
-
-    operators[Object.keys(variables).find((key) => variables[key] === value)]();
+    data.get(value)();
   }
 }
 
@@ -236,7 +220,6 @@ const memoryOperation = new commandMemory(calc);
 const memoryExecuter = new Executer(memoryOperation);
 
 function findExec(value) {
-  console.log(calc, value[0]);
   if (!isNaN(value)) {
     valueExecuter.execute(value);
   } else if (value[0] === "M") {
