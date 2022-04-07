@@ -33,13 +33,11 @@ class Calculator {
     }
   }
 
-  displayValue() {
-    document.querySelector(".display-content").innerHTML =
-      calc.props.currentValue;
-    console.log(
-      document.querySelector(".display-content").innerHTML,
-      calc.props.currentValue
-    );
+  displayValue(arg = calc.props.currentValue) {
+    document.querySelector(".display-content").innerHTML = arg;
+    console.log(document.querySelector(".display-content").innerHTML, arg);
+
+    return arg.toString();
   }
 
   changeValues() {
@@ -128,6 +126,23 @@ class Calculator {
     this.displayValue();
   }
 
+  oneDivideX() {
+    if (this.props.prevValue !== "0" && this.props.prevValue) {
+      this.props.currentValue = (1 / Number(this.props.prevValue)).toString();
+    }
+    this.displayValue();
+  }
+
+  factorial(arg) {
+    return arg !== 1 ? arg * this.factorial(arg - 1) : 1;
+  }
+
+  factFunc() {
+    this.props.currentValue = this.displayValue(
+      this.factorial(this.props.prevValue)
+    );
+  }
+
   findOperation(value) {
     const data = new Map([
       ["+", this.plus.bind(this)],
@@ -135,6 +150,8 @@ class Calculator {
       ["×", this.multiply.bind(this)],
       ["÷", this.divide.bind(this)],
       ["%", this.procent.bind(this)],
+      ["1/x", this.oneDivideX.bind(this)],
+      ["!x", this.factFunc.bind(this)],
     ]);
 
     data.get(value)();
@@ -222,12 +239,16 @@ const memoryExecuter = new Executer(memoryOperation);
 function findExec(value) {
   if (!isNaN(value)) {
     valueExecuter.execute(value);
+    console.log(calc);
   } else if (value[0] === "M") {
     memoryExecuter.execute(value);
+    console.log(calc);
   } else if (value !== "=") {
     operationExecuter.execute(value);
+    console.log(calc);
   } else {
     calculationExecuter.execute(`${calc.props.operation}`);
+    console.log(calc);
   }
 }
 
