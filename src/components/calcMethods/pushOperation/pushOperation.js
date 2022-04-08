@@ -1,10 +1,20 @@
 export default function pushOperation(operation) {
-  if (operation === "C") {
-    this.clear();
-  } else if (operation === "←") {
-    this.larr();
-  } else if (operation === "Back") {
-    this.back();
+  const data = new Map([
+    ["C", this.clear],
+    ["←", this.larr],
+    ["Back", this.back],
+    ["²√", this.squareRoot],
+    ["³√", this.cubicRoot],
+    ["X²", this.xPow2],
+    ["X³", this.xPow3],
+    ["1/x", this.oneDivideX],
+    ["10ₓ", this.tenPowX],
+    ["!x", this.factorial],
+    ["±", this.plusMinus],
+  ]);
+
+  if (data.has(operation)) {
+    data.get(operation)();
   } else {
     if (
       this.props.currentValue &&

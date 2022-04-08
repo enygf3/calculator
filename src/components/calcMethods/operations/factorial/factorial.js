@@ -1,9 +1,14 @@
+import factFunc from "../factFunc/factFunc";
+
 export default class factorial {
   constructor(props) {
     this.calculator = props;
   }
 
-  execute(arg) {
-    return arg !== 1 ? arg * this.factorial(arg - 1) : 1;
+  execute() {
+    this.props.currentValue = factFunc(
+      Number(this.props.currentValue)
+    ).toString();
+    this.displayValue();
   }
 }

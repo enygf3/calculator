@@ -3,9 +3,7 @@ export default class oneDivideX {
     this.calculator = props;
   }
   execute() {
-    if (this.props.prevValue !== "0" && this.props.prevValue) {
-      this.props.currentValue = (1 / Number(this.props.prevValue)).toString();
-    }
+    this.props.currentValue = (1 / Number(this.props.currentValue)).toString();
     this.displayValue();
   }
 }

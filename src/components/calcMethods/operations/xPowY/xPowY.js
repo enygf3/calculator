@@ -3,12 +3,10 @@ export default class xPowY {
     this.calculator = props;
   }
 
-  execute(arg = this.props.currentValue) {
-    if (this.props.prevValue) {
-      this.props.currentValue = (
-        Number(this.props.prevValue) ** arg
-      ).toString();
-    }
+  execute(arg = this.props.currentValue, power = this.props.currentValue) {
+    this.props.currentValue = (
+      Number(this.props.prevValue || arg) ** power
+    ).toString();
 
     this.displayValue();
   }

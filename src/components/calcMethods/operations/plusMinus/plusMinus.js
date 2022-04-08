@@ -4,9 +4,7 @@ export default class plusMinus {
   }
 
   execute() {
-    if (this.props.prevValue !== "0" && this.props.prevValue) {
-      this.props.currentValue = Number(this.props.prevValue) * -1;
-    }
+    this.props.currentValue = Number(this.props.currentValue) * -1;
     this.displayValue();
   }
 }

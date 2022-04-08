@@ -3,13 +3,11 @@ export default class root {
     this.calculator = props;
   }
 
-  execute(arg = this.props.currentValue) {
-    if (this.props.prevValue) {
-      this.props.currentValue = (
-        Number(this.props.prevValue) **
-        (1 / arg)
-      ).toString();
-    }
+  execute(power = this.props.currentValue, arg) {
+    this.props.currentValue = (
+      Number(arg || this.props.prevValue) **
+      (1 / power)
+    ).toString();
 
     this.displayValue();
   }
