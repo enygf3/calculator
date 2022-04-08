@@ -4,12 +4,10 @@ export default class plus {
   }
 
   execute() {
-    console.log(this);
     this.props.currentValue = (
       Number(this.props.prevValue) + Number(this.props.currentValue)
     ).toString();
     this.props.prevValue = "";
-    console.log(this.props.currentValue);
     this.displayValue();
   }
 }

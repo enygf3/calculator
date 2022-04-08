@@ -1,5 +1,4 @@
 export default function findOperation(value) {
-  console.log(this);
   const data = new Map([
     ["+", this.plus],
     ["−", this.minus],

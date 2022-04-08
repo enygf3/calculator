@@ -89,33 +89,33 @@ const getMemoryOperation = new commandMemory(calc);
 const memoryExecuter = new Executer(getMemoryOperation);
 
 //command pattern
-Calculator.prototype.pushOperation = pushOperation;
-Calculator.prototype.findOperation = findOperation;
-Calculator.prototype.memoryOperation = memoryOperation;
+calc.pushOperation = pushOperation;
+calc.findOperation = findOperation;
+calc.memoryOperation = memoryOperation;
 
-Calculator.prototype.displayValue = displayValue;
-Calculator.prototype.changeValues = changeValues;
-Calculator.prototype.getValue = getValue;
+calc.displayValue = displayValue;
+calc.changeValues = changeValues;
+calc.getValue = getValue;
 
-Calculator.prototype.memoryClear = new memoryClear(calc).execute;
-Calculator.prototype.memoryMinus = new memoryMinus(calc).execute;
-Calculator.prototype.memoryPlus = new memoryPlus(calc).execute;
-Calculator.prototype.memoryRead = new memoryRead(calc).execute;
-Calculator.prototype.memorySave = new memorySave(calc).execute;
+calc.memoryClear = new memoryClear(calc).execute;
+calc.memoryMinus = new memoryMinus(calc).execute;
+calc.memoryPlus = new memoryPlus(calc).execute;
+calc.memoryRead = new memoryRead(calc).execute;
+calc.memorySave = new memorySave(calc).execute;
 
-Calculator.prototype.root = new root(calc).execute.bind(calc);
-Calculator.prototype.xPowY = new xPowY(calc).execute.bind(calc);
-Calculator.prototype.plus = new plus(calc).execute.bind(calc);
-Calculator.prototype.minus = new minus(calc).execute.bind(calc);
-Calculator.prototype.multiply = new multiply(calc).execute.bind(calc);
-Calculator.prototype.divide = new divide(calc).execute.bind(calc);
-Calculator.prototype.factorial = new factorial(calc).execute.bind(calc);
-Calculator.prototype.percent = new percent(calc).execute.bind(calc);
-Calculator.prototype.clear = new clear(calc).execute.bind(calc);
-Calculator.prototype.oneDivideX = new oneDivideX(calc).execute.bind(calc);
-Calculator.prototype.larr = new larr(calc).execute.bind(calc);
-Calculator.prototype.back = new back(calc).execute.bind(calc);
-Calculator.prototype.plusMinus = new plusMinus(calc).execute.bind(calc);
+calc.root = new root(calc).execute.bind(calc);
+calc.xPowY = new xPowY(calc).execute.bind(calc);
+calc.plus = new plus(calc).execute.bind(calc);
+calc.minus = new minus(calc).execute.bind(calc);
+calc.multiply = new multiply(calc).execute.bind(calc);
+calc.divide = new divide(calc).execute.bind(calc);
+calc.factorial = new factorial(calc).execute.bind(calc);
+calc.percent = new percent(calc).execute.bind(calc);
+calc.clear = new clear(calc).execute.bind(calc);
+calc.oneDivideX = new oneDivideX(calc).execute.bind(calc);
+calc.larr = new larr(calc).execute.bind(calc);
+calc.back = new back(calc).execute.bind(calc);
+calc.plusMinus = new plusMinus(calc).execute.bind(calc);
 
 //function that gets a value from input and find executer for it
 function findExec(value) {
