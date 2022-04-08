@@ -1,17 +1,33 @@
 import "./styles/style.sass";
+
 import commandMemory from "./components/commands/commandMemory/commandMemory";
 import commandGetValue from "./components/commands/commandGetValue/commandGetValue";
 import commandDoOperation from "./components/commands/commandDoOperation/commandDoOperation";
 import commandPushOperation from "./components/commands/commandPushOperation/commandPushOperation";
+
 import Executer from "./components/executer/executer";
-import root from "./components/calcMethods/root/root";
+
 import getValue from "./components/calcMethods/getValue/getValue";
 import pushOperation from "./components/calcMethods/pushOperation/pushOperation";
-import xPowY from "./components/calcMethods/xPowY/xPowY";
 import findOperation from "./components/calcMethods/findOperation/findOperation";
 import memoryOperation from "./components/calcMethods/memoryOperation/memoryOperation";
 import displayValue from "./components/calcMethods/displayValue/displayValue";
 import changeValues from "./components/calcMethods/changeValues/changeValues";
+
+import xPowY from "./components/calcMethods/operations/xPowY/xPowY";
+import root from "./components/calcMethods/operations/root/root";
+import plus from "./components/calcMethods/operations/plus/plus";
+import minus from "./components/calcMethods/operations/minus/minus";
+import multiply from "./components/calcMethods/operations/multiply/multiply";
+import divide from "./components/calcMethods/operations/divide/divide";
+import factorial from "./components/calcMethods/operations/factorial/factorial";
+import percent from "./components/calcMethods/operations/percent/percent";
+import clear from "./components/calcMethods/operations/clear/clear";
+import oneDivideX from "./components/calcMethods/operations/oneDivideX/oneDivideX";
+import larr from "./components/calcMethods/operations/larr/larr";
+import back from "./components/calcMethods/operations/back/back";
+import plusMinus from "./components/calcMethods/operations/plusMinus/plusMinus";
+
 import memoryClear from "./components/calcMethods/memory/memoryClear/memoryClear";
 import memoryPlus from "./components/calcMethods/memory/memoryPlus/memoryPlus";
 import memoryMinus from "./components/calcMethods/memory/memoryMinus/memoryMinus";
@@ -28,78 +44,6 @@ class Calculator {
       memory: "0",
       history: ["0"],
     };
-  }
-
-  //function that adds numbers
-  plus() {
-    this.props.currentValue = (
-      Number(this.props.prevValue) + Number(this.props.currentValue)
-    ).toString();
-    this.props.prevValue = "";
-    console.log(this.props.currentValue);
-    this.displayValue();
-  }
-
-  //function that subtracts numbers
-  minus() {
-    this.props.currentValue = Number(
-      Number(this.props.prevValue) - Number(this.props.currentValue)
-    ).toString();
-    this.props.prevValue = "";
-    this.displayValue();
-  }
-
-  //function that divides numbers
-  divide() {
-    this.props.currentValue = (
-      Number(this.props.prevValue) / Number(this.props.currentValue)
-    ).toString();
-    this.props.prevValue = "";
-    this.displayValue();
-  }
-  //function that multiplies numbers
-  multiply() {
-    if (this.props.currentValue && this.props.prevValue) {
-      this.props.currentValue = (
-        Number(this.props.prevValue) * Number(this.props.currentValue)
-      ).toString();
-      this.props.prevValue = "";
-      this.displayValue();
-    }
-  }
-
-  //function that getting a percent of current value
-  percent() {
-    if (this.props.currentValue && this.props.prevValue) {
-      this.props.currentValue = (
-        (Number(this.props.prevValue) * Number(this.props.currentValue)) /
-        100
-      ).toString();
-      this.props.prevValue = "";
-      this.displayValue();
-    }
-  }
-
-  //function that clears current value
-  clear() {
-    this.props.currentValue = "0";
-    this.props.prevValue = "";
-    this.props.operation = null;
-    this.props.history = [];
-    this.displayValue();
-  }
-
-  //functino that divides one by X
-  oneDivideX() {
-    if (this.props.prevValue !== "0" && this.props.prevValue) {
-      this.props.currentValue = (1 / Number(this.props.prevValue)).toString();
-    }
-    this.displayValue();
-  }
-
-  //function that gets a factorial of current value
-  factorial(arg) {
-    return arg !== 1 ? arg * this.factorial(arg - 1) : 1;
   }
 
   //help function for factorial
@@ -119,25 +63,6 @@ class Calculator {
     this.xPowY(3);
   }
 
-  //function that changes sign of current value
-  plusMinus() {
-    if (this.props.prevValue !== "0" && this.props.prevValue) {
-      this.props.currentValue = Number(this.props.prevValue) * -1;
-    }
-    this.displayValue();
-  }
-
-  //function that deletes a number from right side of current value
-  larr() {
-    if (this.props.currentValue.length > 0) {
-      this.props.currentValue =
-        this.props.currentValue.slice(0, this.props.currentValue.length - 1) ||
-        "0";
-    }
-
-    this.displayValue();
-  }
-
   //function that gets a square root of current value
   squareRoot() {
     this.root(2);
@@ -147,32 +72,7 @@ class Calculator {
   tripleRoot() {
     this.root(3);
   }
-
-  //function that cancels last operation
-  back() {
-    this.props.currentValue = this.props.history[0];
-    this.props.history[0] = "0";
-    this.displayValue();
-  }
 }
-
-//command pattern
-Calculator.prototype.root = root;
-Calculator.prototype.xPowY = xPowY;
-
-Calculator.prototype.displayValue = displayValue;
-Calculator.prototype.changeValues = changeValues;
-Calculator.prototype.getValue = getValue;
-
-Calculator.prototype.pushOperation = pushOperation;
-Calculator.prototype.findOperation = findOperation;
-Calculator.prototype.memoryOperation = memoryOperation;
-
-Calculator.prototype.memoryClear = memoryClear;
-Calculator.prototype.memoryMinus = memoryMinus;
-Calculator.prototype.memoryPlus = memoryPlus;
-Calculator.prototype.memoryRead = memoryRead;
-Calculator.prototype.memorySave = memorySave;
 
 const calc = new Calculator();
 
@@ -187,6 +87,35 @@ const calculationExecuter = new Executer(makeOperation);
 
 const getMemoryOperation = new commandMemory(calc);
 const memoryExecuter = new Executer(getMemoryOperation);
+
+//command pattern
+Calculator.prototype.pushOperation = pushOperation;
+Calculator.prototype.findOperation = findOperation;
+Calculator.prototype.memoryOperation = memoryOperation;
+
+Calculator.prototype.displayValue = displayValue;
+Calculator.prototype.changeValues = changeValues;
+Calculator.prototype.getValue = getValue;
+
+Calculator.prototype.memoryClear = new memoryClear(calc).execute;
+Calculator.prototype.memoryMinus = new memoryMinus(calc).execute;
+Calculator.prototype.memoryPlus = new memoryPlus(calc).execute;
+Calculator.prototype.memoryRead = new memoryRead(calc).execute;
+Calculator.prototype.memorySave = new memorySave(calc).execute;
+
+Calculator.prototype.root = new root(calc).execute.bind(calc);
+Calculator.prototype.xPowY = new xPowY(calc).execute.bind(calc);
+Calculator.prototype.plus = new plus(calc).execute.bind(calc);
+Calculator.prototype.minus = new minus(calc).execute.bind(calc);
+Calculator.prototype.multiply = new multiply(calc).execute.bind(calc);
+Calculator.prototype.divide = new divide(calc).execute.bind(calc);
+Calculator.prototype.factorial = new factorial(calc).execute.bind(calc);
+Calculator.prototype.percent = new percent(calc).execute.bind(calc);
+Calculator.prototype.clear = new clear(calc).execute.bind(calc);
+Calculator.prototype.oneDivideX = new oneDivideX(calc).execute.bind(calc);
+Calculator.prototype.larr = new larr(calc).execute.bind(calc);
+Calculator.prototype.back = new back(calc).execute.bind(calc);
+Calculator.prototype.plusMinus = new plusMinus(calc).execute.bind(calc);
 
 //function that gets a value from input and find executer for it
 function findExec(value) {

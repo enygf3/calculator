@@ -1,4 +1,10 @@
-export default function memoryRead() {
-  this.props.currentValue = this.props.memory;
-  this.displayValue();
+export default class memoryRead {
+  constructor(props) {
+    this.calculator = props;
+  }
+
+  execute() {
+    this.props.currentValue = this.props.memory;
+    this.displayValue();
+  }
 }
