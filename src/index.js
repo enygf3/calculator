@@ -4,6 +4,14 @@ import commandGetValue from "./components/commands/commandGetValue/commandGetVal
 import commandDoOperation from "./components/commands/commandDoOperation/commandDoOperation";
 import commandPushOperation from "./components/commands/commandPushOperation/commandPushOperation";
 import Executer from "./components/executer/executer";
+import root from "./components/calcMethods/root/root";
+import getValue from "./components/calcMethods/getValue/getValue";
+import pushOperation from "./components/calcMethods/pushOperation/pushOperation";
+import xPowY from "./components/calcMethods/xPowY/xPowY";
+import findOperation from "./components/calcMethods/findOperation/findOperation";
+import memoryOperation from "./components/calcMethods/memoryOperation/memoryOperation";
+import displayValue from "./components/calcMethods/displayValue/displayValue";
+import changeValues from "./components/calcMethods/changeValues/changeValues";
 
 class Calculator {
   constructor() {
@@ -14,53 +22,6 @@ class Calculator {
       memory: "0",
       history: ["0"],
     };
-  }
-
-  getValue(value) {
-    if (this.props.currentValue === "0") {
-      this.props.currentValue = value;
-    } else {
-      this.props.currentValue += value;
-    }
-
-    this.displayValue();
-  }
-
-  pushOperation(operation) {
-    if (operation === "C") {
-      this.clear();
-    } else if (operation === "←") {
-      this.larr();
-    } else if (operation === "Back") {
-      this.back();
-    } else {
-      if (
-        this.props.currentValue &&
-        this.props.prevValue &&
-        this.props.operation
-      ) {
-        this.findOperation(this.props.operation);
-        this.changeValues();
-        this.props.operation = operation;
-      } else {
-        this.props.operation = operation;
-        if (this.props.currentValue) {
-          this.changeValues();
-        }
-      }
-    }
-  }
-
-  displayValue(arg = calc.props.currentValue) {
-    document.querySelector(".display-content").innerHTML = arg;
-
-    return arg.toString();
-  }
-
-  changeValues() {
-    this.props.history[0] = this.props.currentValue;
-    this.props.prevValue = this.props.currentValue;
-    this.props.currentValue = "0";
   }
 
   memorySave() {
@@ -106,13 +67,11 @@ class Calculator {
   }
 
   divide() {
-    if (this.props.prevValue) {
-      this.props.currentValue = (
-        Number(this.props.prevValue) / Number(this.props.currentValue)
-      ).toString();
-      this.props.prevValue = "";
-      this.displayValue();
-    }
+    this.props.currentValue = (
+      Number(this.props.prevValue) / Number(this.props.currentValue)
+    ).toString();
+    this.props.prevValue = "";
+    this.displayValue();
   }
 
   multiply() {
@@ -169,16 +128,6 @@ class Calculator {
     this.xPowY(3);
   }
 
-  xPowY(arg = this.props.currentValue) {
-    if (this.props.prevValue) {
-      this.props.currentValue = (
-        Number(this.props.prevValue) ** arg
-      ).toString();
-    }
-
-    this.displayValue();
-  }
-
   plusMinus() {
     if (this.props.prevValue !== "0" && this.props.prevValue) {
       this.props.currentValue = Number(this.props.prevValue) * -1;
@@ -191,17 +140,6 @@ class Calculator {
       this.props.currentValue =
         this.props.currentValue.slice(0, this.props.currentValue.length - 1) ||
         "0";
-    }
-
-    this.displayValue();
-  }
-
-  root(arg = this.props.currentValue) {
-    if (this.props.prevValue) {
-      this.props.currentValue = (
-        Number(this.props.prevValue) **
-        (1 / arg)
-      ).toString();
     }
 
     this.displayValue();
@@ -220,54 +158,30 @@ class Calculator {
     this.props.history[0] = "0";
     this.displayValue();
   }
-
-  findOperation(value) {
-    const data = new Map([
-      ["+", this.plus.bind(this)],
-      ["−", this.minus.bind(this)],
-      ["×", this.multiply.bind(this)],
-      ["÷", this.divide.bind(this)],
-      ["%", this.procent.bind(this)],
-      ["1/x", this.oneDivideX.bind(this)],
-      ["!x", this.factFunc.bind(this)],
-      ["X²", this.xPow2.bind(this)],
-      ["X³", this.xPow3.bind(this)],
-      ["Xᵧ", this.xPowY.bind(this)],
-      ["±", this.plusMinus.bind(this)],
-      ["²√", this.squareRoot.bind(this)],
-      ["³√", this.tripleRoot.bind(this)],
-      ["ᵧ√", this.root.bind(this)],
-    ]);
-
-    data.get(value)();
-  }
-
-  memoryOperation(value) {
-    const data = new Map([
-      ["M+", this.memoryPlus.bind(this)],
-      ["M-", this.memoryMinus.bind(this)],
-      ["MR", this.memoryRead.bind(this)],
-      ["MS", this.memorySave.bind(this)],
-      ["MC", this.memoryClear.bind(this)],
-    ]);
-
-    data.get(value)();
-  }
 }
+
+Calculator.prototype.root = root;
+Calculator.prototype.getValue = getValue;
+Calculator.prototype.pushOperation = pushOperation;
+Calculator.prototype.xPowY = xPowY;
+Calculator.prototype.findOperation = findOperation;
+Calculator.prototype.memoryOperation = memoryOperation;
+Calculator.prototype.displayValue = displayValue;
+Calculator.prototype.changeValues = changeValues;
 
 const calc = new Calculator();
 
-const getValue = new commandGetValue(calc);
-const valueExecuter = new Executer(getValue);
+const getNum = new commandGetValue(calc);
+const valueExecuter = new Executer(getNum);
 
-const pushOperation = new commandPushOperation(calc);
-const operationExecuter = new Executer(pushOperation);
+const pushOperator = new commandPushOperation(calc);
+const operationExecuter = new Executer(pushOperator);
 
 const makeOperation = new commandDoOperation(calc);
 const calculationExecuter = new Executer(makeOperation);
 
-const memoryOperation = new commandMemory(calc);
-const memoryExecuter = new Executer(memoryOperation);
+const getMemoryOperation = new commandMemory(calc);
+const memoryExecuter = new Executer(getMemoryOperation);
 
 function findExec(value) {
   if (value === "." || !isNaN(value)) {
