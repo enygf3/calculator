@@ -3,9 +3,12 @@ export default class xPow3 {
     this.calculator = props;
   }
 
-  execute() {
-    this.props.currentValue = (Number(this.props.currentValue) ** 3).toString();
+  execute(value = this.props.currentValue) {
+    this.props.currentValue = (Number(value) ** 3).toString();
 
     this.displayValue();
+
+    let result;
+    return (result = this.props.currentValue);
   }
 }

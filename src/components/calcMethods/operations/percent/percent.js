@@ -3,14 +3,17 @@ export default class percent {
     this.calculator = props;
   }
 
-  execute() {
-    if (this.props.currentValue && this.props.prevValue) {
+  execute(value = this.props.currentValue, prev = this.props.prevValue) {
+    if (value && prev) {
       this.props.currentValue = (
-        (Number(this.props.prevValue) * Number(this.props.currentValue)) /
+        (Number(prev) * Number(value)) /
         100
       ).toString();
       this.props.prevValue = "";
       this.displayValue();
     }
+
+    let result;
+    return (result = this.props.currentValue);
   }
 }

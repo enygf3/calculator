@@ -3,13 +3,14 @@ export default class multiply {
     this.calculator = props;
   }
 
-  execute() {
-    if (this.props.currentValue && this.props.prevValue) {
-      this.props.currentValue = (
-        Number(this.props.prevValue) * Number(this.props.currentValue)
-      ).toString();
+  execute(value = this.props.currentValue, prev = this.props.prevValue) {
+    if (value && prev) {
+      this.props.currentValue = (Number(prev) * Number(value)).toString();
       this.props.prevValue = "";
       this.displayValue();
+
+      let result;
+      return (result = this.props.currentValue);
     }
   }
 }

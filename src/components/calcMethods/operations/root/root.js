@@ -10,5 +10,8 @@ export default class root {
     ).toString();
 
     this.displayValue();
+
+    let result;
+    return (result = this.props.currentValue);
   }
 }

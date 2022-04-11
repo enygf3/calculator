@@ -3,8 +3,11 @@ export default class plusMinus {
     this.calculator = props;
   }
 
-  execute() {
-    this.props.currentValue = Number(this.props.currentValue) * -1;
+  execute(value = this.props.currentValue) {
+    this.props.currentValue = Number(value) * -1;
     this.displayValue();
+
+    let result;
+    return (result = this.props.currentValue);
   }
 }

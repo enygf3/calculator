@@ -5,10 +5,11 @@ export default class factorial {
     this.calculator = props;
   }
 
-  execute() {
-    this.props.currentValue = factFunc(
-      Number(this.props.currentValue)
-    ).toString();
+  execute(value = this.props.currentValue) {
+    this.props.currentValue = factFunc(Number(value)).toString();
     this.displayValue();
+
+    let result;
+    return (result = this.props.currentValue);
   }
 }

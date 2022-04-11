@@ -3,11 +3,12 @@ export default class plus {
     this.calculator = props;
   }
 
-  execute() {
-    this.props.currentValue = (
-      Number(this.props.prevValue) + Number(this.props.currentValue)
-    ).toString();
+  execute(value = this.props.currentValue, prev = this.props.prevValue) {
+    this.props.currentValue = (Number(prev) + Number(value)).toString();
     this.props.prevValue = "";
     this.displayValue();
+
+    let result;
+    return (result = this.props.currentValue);
   }
 }

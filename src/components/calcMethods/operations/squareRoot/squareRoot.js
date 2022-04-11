@@ -3,11 +3,12 @@ export default class squareRoot {
     this.calculator = props;
   }
 
-  execute() {
-    this.props.currentValue = (
-      Number(this.props.currentValue) ** 0.5
-    ).toString();
+  execute(value = this.props.currentValue) {
+    this.props.currentValue = (Number(value) ** 0.5).toString();
 
     this.displayValue();
+
+    let result;
+    return (result = this.props.currentValue);
   }
 }
