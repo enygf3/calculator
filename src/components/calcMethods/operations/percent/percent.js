@@ -3,12 +3,12 @@ export default class percent {
     this.calculator = props;
   }
 
-  execute(value = this.props.currentValue, prev = this.props.prevValue) {
-    if (value && prev) {
-      this.props.currentValue = (
-        (Number(prev) * Number(value)) /
-        100
-      ).toString();
+  execute(
+    value = Number(this.props.currentValue),
+    prev = Number(this.props.prevValue)
+  ) {
+    if (!isNaN(value) && !isNaN(prev)) {
+      this.props.currentValue = ((prev * value) / 100).toString();
       this.props.prevValue = "";
       this.displayValue();
     }

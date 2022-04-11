@@ -4,7 +4,7 @@ export default function findOperation(value) {
     ["−", this.minus],
     ["×", this.multiply],
     ["÷", this.divide],
-    ["%", this.procent],
+    ["%", this.percent],
     ["Xᵧ", this.xPowY],
     ["ᵧ√", this.root],
   ]);
