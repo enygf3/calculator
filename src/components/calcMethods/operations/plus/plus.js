@@ -3,10 +3,15 @@ export default class plus {
     this.calculator = props;
   }
 
-  execute(value = this.props.currentValue, prev = this.props.prevValue) {
-    this.props.currentValue = (Number(prev) + Number(value)).toString();
-    this.props.prevValue = "";
-    this.displayValue();
+  execute(
+    value = Number(this.props.currentValue),
+    prev = Number(this.props.prevValue)
+  ) {
+    if (!isNaN(value) && !isNaN(prev)) {
+      this.props.currentValue = (prev + value).toString();
+      this.props.prevValue = "";
+      this.displayValue();
+    }
 
     let result;
     return (result = this.props.currentValue);
