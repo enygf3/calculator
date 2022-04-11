@@ -1,12 +1,10 @@
 export default function getTheme() {
-  if (localStorage.getItem("theme")) {
-    if (localStorage.getItem("theme") === "0") {
-      document.body.style.background = "#A3A3A3";
-      document.querySelector(".app-theme-btn").src = "./sun.ico";
-    } else {
-      document.body.style.background = "#E9E9E9";
-      document.querySelector(".app-theme-btn").src = "./moon.png";
-    }
+  if (localStorage.getItem("theme") === "0") {
+    document.body.style.background = "#A3A3A3";
+    document.querySelector(".app-theme-btn").src = "./sun.ico";
+  } else if (localStorage.getItem("theme") === "1") {
+    document.body.style.background = "#E9E9E9";
+    document.querySelector(".app-theme-btn").src = "./moon.png";
   } else {
     localStorage.setItem("theme", "0");
     document.querySelector(".app-theme-btn").src = "./sun.ico";
