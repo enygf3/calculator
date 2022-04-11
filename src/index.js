@@ -52,11 +52,12 @@ class Calculator {
       operation: null,
       prevValue: "",
       memory: "0",
-      history: ["0"],
+      history: "0",
     };
   }
 }
 
+//theme management
 getTheme();
 
 const Calc = new Calculator();

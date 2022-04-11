@@ -4,8 +4,8 @@ export default class back {
   }
 
   execute() {
-    this.props.currentValue = this.props.history[0];
-    this.props.history[0] = "0";
+    this.props.currentValue = this.props.history;
+    this.props.history = "0";
     this.displayValue();
   }
 }

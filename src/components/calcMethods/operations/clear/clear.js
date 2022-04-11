@@ -7,7 +7,7 @@ export default class clear {
     this.props.currentValue = "0";
     this.props.prevValue = "";
     this.props.operation = null;
-    this.props.history = [];
+    this.props.history = "0";
     this.displayValue();
   }
 }
