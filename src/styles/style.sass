@@ -13,6 +13,16 @@ html, body
     overflow: hidden
     background: #393939
 
+.app-theme
+    width: 50px
+    height: 50px
+    position: absolute
+    top: 30px
+    left: 30px
+    z-index: 5
+    img
+        cursor: pointer
+
 #app
     width: 100%
     height: 100%
@@ -81,36 +91,22 @@ html, body
     visibility: hidden
     display: none
 
-.app-theme
-    width: 50px
-    height: 50px
-    position: absolute
-    top: 30px
-    left: 30px
-    z-index: 5
-    img
-        cursor: pointer
-
 @media all and (orientation: landscape)
     .app-controls
         width: 100%
-        height: 75%
+        height: 77.5%
     
     .app-controls-button
-        width: 70px
+        width: 60px
         height: 35px
         font-size: 1.2em
-        margin: 5px 15px 5px 15px
+        margin: 0px 15px 5px 15px
     
     .landscape
         visibility: visible
         display: inline-block
 
 @media all and (min-width: 700px)
-    .app-controls-button
-        width: 80px
-        height: 80px
-
     .app-controls
         width: 100%
         height: 60%
