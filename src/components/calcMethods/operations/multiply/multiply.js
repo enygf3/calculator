@@ -3,8 +3,11 @@ export default class multiply {
     this.calculator = props;
   }
 
-  execute(value = this.props.currentValue, prev = this.props.prevValue) {
-    if (value && prev) {
+  execute(
+    value = Number(this.props.currentValue),
+    prev = this.props.prevValue
+  ) {
+    if (!isNaN(value) && !isNaN(prev)) {
       this.props.currentValue = (Number(prev) * Number(value)).toString();
       this.props.prevValue = "";
       this.displayValue();
