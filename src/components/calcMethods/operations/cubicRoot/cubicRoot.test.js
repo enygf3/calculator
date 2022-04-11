@@ -19,10 +19,14 @@ test("8 to be equal 2", () => {
   expect(calc.cubicRoot(8)).toStrictEqual("2");
 });
 
-test("0 to be equal 1", () => {
+test("0 to be equal 0", () => {
   expect(calc.cubicRoot(0)).toStrictEqual("0");
 });
 
 test("125 to be equal 5", () => {
   expect(calc.cubicRoot(125)).toStrictEqual("5");
+});
+
+test("-1 to be equal NaN", () => {
+  expect(calc.cubicRoot(-1)).toStrictEqual("NaN");
 });
