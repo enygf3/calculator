@@ -3,7 +3,7 @@ export default class minus {
     this.calculator = props;
   }
 
-  execute(value = this.props.currentValue, prev = this.props.prevValue) {
+  execute(prev = this.props.prevValue, value = this.props.currentValue) {
     this.props.currentValue = Number(Number(prev) - Number(value)).toString();
     this.props.prevValue = "";
     this.displayValue();
