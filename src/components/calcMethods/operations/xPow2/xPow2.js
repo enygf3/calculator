@@ -3,10 +3,12 @@ export default class xPow2 {
     this.calculator = props;
   }
 
-  execute(value = this.props.currentValue) {
-    this.props.currentValue = (Number(value) ** 2).toString();
+  execute(value = Number(this.props.currentValue)) {
+    if (!isNaN(value)) {
+      this.props.currentValue = (value ** 2).toString();
 
-    this.displayValue();
+      this.displayValue();
+    }
 
     let result;
     return (result = this.props.currentValue);
