@@ -16,8 +16,6 @@ Done✅
 
 ## File structure
 
-`./packages` - folder that contain all dependencies of this app
-
 `./src` - folder that contain all components of this app
 
         ./src/components - There are all the components of the app. Each component's folder in it contain a .js file with the same name as folder
@@ -30,4 +28,4 @@ Done✅
 
         ./src/style - Folder with .sass(styles) of the app
 
-`./` - folder that contain `packages`, `source code` and all the `config files`
+`./` - folder that contain `source code` and all the `config files`
