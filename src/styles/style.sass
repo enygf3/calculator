@@ -1,0 +1,129 @@
+*
+    user-select: none
+    outline: none
+    box-sizing: border-box
+    margin: 0 auto
+    padding: 0
+    text-decoration: none
+    font-family: Arial, Helvetica, sans-serif
+
+html, body
+    width: 100%
+    height: 100%
+    overflow: hidden
+    background: #393939
+
+.app-theme
+    width: 50px
+    height: 50px
+    position: absolute
+    top: 30px
+    left: 30px
+    z-index: 5
+    img
+        cursor: pointer
+
+#app
+    width: 100%
+    height: 100%
+    display: flex
+    align-items: center
+    justify-content: space-evenly
+    flex-direction: column
+
+.app-display
+    width: 100%
+    height: 30%
+    position: relative
+
+.display-content
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    display: flex
+    align-items: flex-end
+    justify-content: center
+    flex-direction: column
+    font-size: 2em
+    color: #fff
+    padding-right: 25px
+
+.app-controls
+    width: 100%
+    height: 70%
+    display: flex
+    flex-direction: column
+    flex-wrap: nowrap
+    align-items: center
+    justify-content: space-evenly
+
+.app-controls-button
+    width: 75px
+    height: 75px
+    border: none
+    background: #424141
+    color: #fff
+    font-size: 1.5em
+    font-weight: bold
+    cursor: pointer
+    outline: none
+    transition-duration: .3s
+    border-radius: 15px
+    outline: none
+    margin: 0px 5px 0px 5px
+    &:hover
+        background: #393939
+        transition-duration: .3s
+
+
+.orange
+    color: #ffa500
+
+.green-bg
+    background: #029402
+
+.green
+    color: #029402
+
+.landscape
+    visibility: hidden
+    display: none
+
+@media all and (max-width: 355px)
+    .app-controls-button
+        width: 60px
+        height: 60px
+        font-size: 1.5em
+        margin-top: 0px
+        margin-bottom: 0px
+
+@media all and (orientation: landscape)
+    .app-controls
+        width: 100%
+        height: 77.5%
+    
+    .app-controls-button
+        width: 60px
+        height: 35px
+        font-size: 1.2em
+        margin: 0px 15px 5px 15px
+    
+    .landscape
+        visibility: visible
+        display: inline-block
+
+@media all and (min-width: 780px)
+    .app-controls
+        width: 100%
+        height: 60%
+
+    .display-content
+        padding-right: 25%
+
+    .app-controls-button
+        width: 75px
+        height: 75px
+        font-size: 1.5em
+        margin: 0px 25px 0px 25px
