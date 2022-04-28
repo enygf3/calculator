@@ -1,3 +1,4 @@
+//function that divides two numbers
 export default class divide {
   constructor(props) {
     this.calculator = props;

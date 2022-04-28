@@ -1,3 +1,4 @@
+//function that gets the operation and returns the function or calling function in case of instant operation
 export default function pushOperation(operation) {
   const data = new Map([
     ["C", this.clear],

@@ -1,5 +1,6 @@
 import factFunc from "../factFunc/factFunc";
 
+//main function for factorial
 export default class factorial {
   constructor(props) {
     this.calculator = props;

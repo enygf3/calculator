@@ -1,3 +1,4 @@
+//function that clears the calculator
 export default class clear {
   constructor(props) {
     this.calculator = props;

@@ -1,3 +1,4 @@
+//function that subtracts two numbers
 export default class minus {
   constructor(props) {
     this.calculator = props;

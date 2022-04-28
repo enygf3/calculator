@@ -1,3 +1,4 @@
+//function that manages the theme
 export default function getTheme() {
   if (localStorage.getItem("theme") === "0") {
     document.body.style.background = "#A3A3A3";
@@ -11,21 +12,27 @@ export default function getTheme() {
     document.body.style.background = "#A3A3A3";
   }
 
+  //handling click on theme button
   document.querySelector(".app-theme-btn").onclick = function () {
+    //reversing the theme value
     localStorage.setItem(
       "theme",
       localStorage.getItem("theme") === "0" ? "1" : "0"
     );
 
+    //changing image source
     document.querySelector(".app-theme-btn").src =
       localStorage.getItem("theme") === "0" ? "./sun.ico" : "./moon.png";
 
+    //calling the theme function
     localStorage.getItem("theme") === "0" ? dark() : light();
   };
 
+  //calling the theme function on window load
   localStorage.getItem("theme") === "0" ? dark() : light();
 }
 
+//light theme function
 export function light() {
   document.body.style.background = "#E9E9E9";
   Array.from(document.getElementsByTagName("h3"))
@@ -41,6 +48,7 @@ export function light() {
   });
 }
 
+//dark theme function
 export function dark() {
   document.body.style.background = "#393939";
   Array.from(document.getElementsByTagName("h3"))

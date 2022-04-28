@@ -1,3 +1,4 @@
+//function that powers ten to the x
 export default class tenPowX {
   constructor(props) {
     this.calculator = props;

@@ -1,3 +1,4 @@
+//function that finds the memory operation and returns the function
 export default function memoryOperation(value) {
   const data = new Map([
     ["M+", this.memoryPlus.bind(this)],

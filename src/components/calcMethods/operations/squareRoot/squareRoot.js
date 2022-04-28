@@ -1,3 +1,4 @@
+//function that calculates the square root of a number
 export default class squareRoot {
   constructor(props) {
     this.calculator = props;

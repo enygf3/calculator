@@ -1,3 +1,4 @@
+//function that calculates the percentage of the first number to the second number
 export default class percent {
   constructor(props) {
     this.calculator = props;

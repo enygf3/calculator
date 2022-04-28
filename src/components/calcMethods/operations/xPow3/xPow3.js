@@ -1,3 +1,4 @@
+//function that powers a number to the 3rd power
 export default class xPow3 {
   constructor(props) {
     this.calculator = props;

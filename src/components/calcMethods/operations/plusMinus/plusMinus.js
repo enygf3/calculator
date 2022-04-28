@@ -1,3 +1,4 @@
+//function that chnages the sign of the number
 export default class plusMinus {
   constructor(props) {
     this.calculator = props;

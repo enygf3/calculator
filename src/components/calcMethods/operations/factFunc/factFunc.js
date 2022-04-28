@@ -1,3 +1,4 @@
+//help functin for factorial
 const factFunc = (num) => {
   return num > 0 ? num * factFunc(num - 1) : 1;
 };

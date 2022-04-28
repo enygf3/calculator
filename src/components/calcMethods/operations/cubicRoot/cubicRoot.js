@@ -1,3 +1,4 @@
+//function that calculates the cubic root of a number
 export default class cubicRoot {
   constructor(props) {
     this.calculator = props;

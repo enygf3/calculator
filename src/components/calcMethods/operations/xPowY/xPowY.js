@@ -1,3 +1,4 @@
+//function that powers X to the power of Y
 export default class xPowY {
   constructor(props) {
     this.calculator = props;

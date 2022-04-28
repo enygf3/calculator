@@ -1,3 +1,4 @@
+//function that divides one by x
 export default class oneDivideX {
   constructor(props) {
     this.calculator = props;

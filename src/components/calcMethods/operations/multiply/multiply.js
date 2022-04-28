@@ -1,3 +1,4 @@
+//function that multiplies two numbers
 export default class multiply {
   constructor(props) {
     this.calculator = props;

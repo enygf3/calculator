@@ -1,3 +1,4 @@
+//function that adds numbers
 export default class plus {
   constructor(props) {
     this.calculator = props;

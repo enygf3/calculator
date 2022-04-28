@@ -1,3 +1,4 @@
+//function that finds the operation and returns the function
 export default function findOperation(value) {
   const data = new Map([
     ["+", this.plus],

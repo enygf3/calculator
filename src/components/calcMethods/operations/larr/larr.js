@@ -1,3 +1,4 @@
+//function that delete last number in the current value
 export default class larr {
   constructor(props) {
     this.calculator = props;

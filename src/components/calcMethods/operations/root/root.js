@@ -1,3 +1,4 @@
+//function that calculates the n root of a number
 export default class root {
   constructor(props) {
     this.calculator = props;
