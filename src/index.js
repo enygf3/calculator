@@ -1,7 +1,7 @@
 import "./styles/style.sass";
 
-import "./img/moon.png";
-import "./img/sun.ico";
+import "./img/moon.webp";
+import "./img/sun.webp";
 
 import getTheme from "./components/getTheme/getTheme";
 

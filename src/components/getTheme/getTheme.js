@@ -2,13 +2,13 @@
 export default function getTheme() {
   if (localStorage.getItem("theme") === "0") {
     document.body.style.background = "#A3A3A3";
-    document.querySelector(".app-theme-btn").src = "./sun.ico";
+    document.querySelector(".app-theme-btn").src = "./sun.webp";
   } else if (localStorage.getItem("theme") === "1") {
     document.body.style.background = "#E9E9E9";
-    document.querySelector(".app-theme-btn").src = "./moon.png";
+    document.querySelector(".app-theme-btn").src = "./moon.webp";
   } else {
     localStorage.setItem("theme", "0");
-    document.querySelector(".app-theme-btn").src = "./sun.ico";
+    document.querySelector(".app-theme-btn").src = "./sun.webp";
     document.body.style.background = "#A3A3A3";
   }
 
@@ -22,7 +22,7 @@ export default function getTheme() {
 
     //changing image source
     document.querySelector(".app-theme-btn").src =
-      localStorage.getItem("theme") === "0" ? "./sun.ico" : "./moon.png";
+      localStorage.getItem("theme") === "0" ? "./sun.webp" : "./moon.webp";
 
     //calling the theme function
     localStorage.getItem("theme") === "0" ? dark() : light();
