@@ -13,8 +13,7 @@ export default class multiply {
       this.props.prevValue = "";
       this.displayValue();
 
-      let result;
-      return (result = this.props.currentValue);
+      return this.props.currentValue;
     }
   }
 }

@@ -11,7 +11,6 @@ export default class tenPowX {
       this.displayValue();
     }
 
-    let result;
-    return (result = this.props.currentValue);
+    return this.props.currentValue;
   }
 }

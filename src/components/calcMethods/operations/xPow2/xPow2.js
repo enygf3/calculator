@@ -11,7 +11,6 @@ export default class xPow2 {
       this.displayValue();
     }
 
-    let result;
-    return (result = this.props.currentValue);
+    return this.props.currentValue;
   }
 }

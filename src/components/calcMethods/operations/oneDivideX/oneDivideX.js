@@ -7,7 +7,6 @@ export default class oneDivideX {
     this.props.currentValue = (1 / Number(value)).toString();
     this.displayValue();
 
-    let result;
-    return (result = this.props.currentValue);
+    return this.props.currentValue;
   }
 }

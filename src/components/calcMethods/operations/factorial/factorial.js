@@ -10,7 +10,6 @@ export default class factorial {
     this.props.currentValue = factFunc(Number(value)).toString();
     this.displayValue();
 
-    let result;
-    return (result = this.props.currentValue);
+    return this.props.currentValue;
   }
 }
